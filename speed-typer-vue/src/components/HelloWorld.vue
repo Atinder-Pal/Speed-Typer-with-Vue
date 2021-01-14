@@ -3,8 +3,9 @@
   <p>
     <span v-for="(keyword, index) in keywords" :key="index">
       {{keyword+ ' '}} 
-    </span>
+    </span>    
   </p>
+  <input type="text" :value="inputValue" @keyup.space="processInput($event)">
 </template>
 
 <script>
@@ -12,10 +13,20 @@ export default {
   name: 'HelloWorld',
   data() {
     return{
+      index: 0,
+      inputValue: '',
       keywords: ['JavaScript', 'HTML', 'CSS', 'React','Vue', 'Angular','PHP','C#', 'DotNet'],
     }
+  },
+  methods: {
+    processInput(event){
+      this.inputValue= event.target.value.trim();
+      console.log(this.inputValue);
+      this.inputValue=''
+    }
   }
-}
+
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
