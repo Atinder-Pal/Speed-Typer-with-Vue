@@ -1,29 +1,51 @@
 <template>
   <h1>Speed Typer</h1>
   <p>
-    <span v-for="(keyword, index) in keywords" :key="index">
-      {{keyword+ ' '}} 
+    <span 
+      :class="{ correct: keyword.correct, wrong: keyword.wrong, pending: keyword.pending}"
+      v-for="keyword in keywords" :key="keyword.text">
+      {{keyword.text + ' '}} 
     </span>    
   </p>
   <input type="text" :value="inputValue" @keyup.space="processInput($event)">
 </template>
 
 <script>
+const defaultKeywords = ['JavaScript', 'HTML', 'CSS', 'React','Vue', 'Angular','PHP','C#', 'DotNet'].map(keyword => {
+  return {
+    text: keyword,
+    correct: false,
+    wrong: false,
+    pending: true
+  }
+});
 export default {
   name: 'HelloWorld',
   data() {
     return{
       index: 0,
       inputValue: '',
-      keywords: ['JavaScript', 'HTML', 'CSS', 'React','Vue', 'Angular','PHP','C#', 'DotNet'],
+      keywords: defaultKeywords,
     }
   },
   methods: {
     processInput(event){
       this.inputValue= event.target.value.trim();
       console.log(this.inputValue);
-      this.inputValue=''
-    }
+     
+      if (this.inputValue === "") {
+        return;
+      }
+      if(this.keywords[this.index].text === this.inputValue) {
+        this.keywords[this.index].correct = true
+        this.keywords[this.index].pending = false                
+      } else {
+        this.keywords[this.index].wrong = true
+        this.keywords[this.index].pending = false
+      }
+       this.inputValue='';
+       this.index++;
+    },
   }
 
 };
@@ -45,4 +67,16 @@ li {
 a {
   color: #42b983;
 }
+.pending {
+  font-weight: bold;
+}
+.wrong {
+  font-weight: bold;
+  color: red;
+}
+.correct{
+  font-weight: bold;
+  color: green;
+}
+
 </style>
