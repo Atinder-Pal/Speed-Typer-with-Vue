@@ -1,4 +1,4 @@
-# speed-typer
+# speed-typer-vue
 
 ## Project setup
 ```
