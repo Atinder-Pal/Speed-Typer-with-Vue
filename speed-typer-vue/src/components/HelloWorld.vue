@@ -1,5 +1,8 @@
 <template>
   <h1>Speed Typer</h1>
+  <h2>Your Score: {{ ' '+ keywords.filter(keyword => keyword.correct).length }}
+    / 
+    {{keywords.length}} </h2>
   <p>
     <span 
       :class="{ correct: keyword.correct, wrong: keyword.wrong, pending: keyword.pending}"
